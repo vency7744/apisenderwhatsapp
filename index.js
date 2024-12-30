@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -58,4 +57,6 @@ app.post('/update-status', (req, res) => {
 });
 
 // Ekspor aplikasi untuk Vercel (serverless function)
+// Change from app.listen to use the handler
+module.exports = app;
 module.exports.handler = serverless(app);
