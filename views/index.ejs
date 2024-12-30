@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Requests</title>
+</head>
+<body>
+    <h1>Daftar Permintaan Attack</h1>
+
+    <form action="/attack" method="POST">
+        <label for="target">Target:</label>
+        <input type="text" id="target" name="target" required>
+        <button type="submit">Kirim Permintaan</button>
+    </form>
+
+    <h2>Permintaan Tertunda:</h2>
+    <ul>
+        <% attackRequests.forEach(request => { %>
+            <li>
+                <strong>Target:</strong> <%= request.target %> - 
+                <strong>Status:</strong> <%= request.status %>
+                <form action="/update-status" method="POST" style="display:inline;">
+                    <input type="hidden" name="target" value="<%= request.target %>">
+                    <select name="status" onchange="this.form.submit()">
+                        <option value="pending" <%= request.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                        <option value="processing" <%= request.status === 'processing' ? 'selected' : '' %>>Processing</option>
+                        <option value="completed" <%= request.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                    </select>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
